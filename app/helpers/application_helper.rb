@@ -7,5 +7,5 @@ module ApplicationHelper
     when :error then 'alert alert-error'
     when :alert then 'alert alert-error'
     end
-end
+  end
 end

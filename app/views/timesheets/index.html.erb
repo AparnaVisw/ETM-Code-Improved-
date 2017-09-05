@@ -22,6 +22,7 @@
        <div class="form-group">
        <% @timesheets.each do |t| %>
       <tr>
+        <% debugger  %>
           <td id ="def_project_name"> <%= if @all_projects[0][0] == t.project_id then @all_projects[0][1] else @all_projects[1][1] end %> </td>
           <td id ="four_days_b4"><%= link_to t.timespend,timesheets_edit_path(id:  @user.id,timesheet_id: t.id) if t.date_worked == (4.day.ago).to_date %> </td>
           <td id ="three_days_b4"><%= link_to t.timespend,timesheets_edit_path(id:  @user.id,timesheet_id: t.id) if t.date_worked == (3.day.ago).to_date %>  </td>

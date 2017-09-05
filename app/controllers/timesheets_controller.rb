@@ -1,9 +1,9 @@
 # controller for timesheet management
 class TimesheetsController < ApplicationController
   before_action :check_whether_exceeds_maximum_hours, only: %i[create update]
+  before_action :fetch_all_projects
 
   def new
-    @user = Employee.find(params[:id])
     @projects = Project.all
     @timesheet = Timesheet.new
     respond_to do |format|
@@ -21,22 +21,12 @@ class TimesheetsController < ApplicationController
   end
 
   def index
-    @all_projects = Project.all.pluck(:id, :project_name)
     @user = Employee.find(params[:id])
     @employee = Employee.get_employee_record(params[:id].to_s).pluck(:name)[0]
     @timesheets = Timesheet.employee_timesheet(params[:id].to_s)
-    @total_hours_worked_today = Timesheet.get_total_hours_on_a_date(params[:id], Date.today)
-    @total_hours_worked_yest = Timesheet.get_total_hours_on_a_date(params[:id], Date.yesterday)
-    @total_hours_worked_dayb4yest = Timesheet.get_total_hours_on_a_date(params[:id], 2.day.ago)
-    @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(params[:id], 3.day.ago)
-    @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(params[:id], 4.day.ago)
-    @total_hours_in_last_5_days_project = Timesheet.get_total_hours_in_last_5_days(params[:project_id], params[:id])
-    @all_projects.each do |proj|
-      @total_hours_in_last_5_days_4project_not_chosen = Timesheet.get_total_hours_in_last_5_days(proj[0], params[:id]) if params[:project_id].to_i != proj[0]
-    end
-    @total_perc_in_last_5_days_project = (@total_hours_in_last_5_days_project / 40) * 100
-    @total_perc_in_last_5_days_4project_not_chosen = (@total_hours_in_last_5_days_4project_not_chosen / 40) * 100
-    @hours_per_day_per_project = Timesheet.get_hours_in_proj_per_day(params[:emp_id], params[:project_id], Date.today)
+    @total_hours_per_each_day = calculate_total_hours_per_day(params[:id])
+    @total_hours_for_last_5_days_in_projects = calculate_hours_for_last_5_days(params[:id], params[:project_id])
+    @total_perc_per_each_day = calculate_total_perc_per_day(params[:emp_id], params[:project_id])
     respond_to do |format|
       format.html
     end
@@ -78,7 +68,35 @@ class TimesheetsController < ApplicationController
 
   private
 
+  def calculate_total_hours_per_day(id)
+    @total_hours_worked_today = Timesheet.get_total_hours_on_a_date(id, Date.today)
+    @total_hours_worked_yest = Timesheet.get_total_hours_on_a_date(id, Date.yesterday)
+    @total_hours_worked_dayb4yest = Timesheet.get_total_hours_on_a_date(id, 2.day.ago)
+    @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(id, 3.day.ago)
+    @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(id, 4.day.ago)
+    [@total_hours_worked_today, @total_hours_worked_yest, @total_hours_worked_dayb4yest, @total_hours_worked_3dayb4, @total_hours_worked_4dayb4]
+  end
+
+  def calculate_hours_for_last_5_days(id, proj_id)
+    @total_hours_in_last_5_days_project = Timesheet.get_total_hours_in_last_5_days(proj_id, id)
+    @all_projects.each do |proj|
+      @total_hours_in_last_5_days_4project_not_chosen = Timesheet.get_total_hours_in_last_5_days(proj[0], id) if proj_id.to_i != proj[0]
+    end
+    [@total_hours_in_last_5_days_project, @total_hours_in_last_5_days_4project_not_chosen]
+  end
+
+  def calculate_total_perc_per_day(emp_id, proj_id)
+    @total_perc_in_last_5_days_project = (@total_hours_in_last_5_days_project / 40) * 100
+    @total_perc_in_last_5_days_4project_not_chosen = (@total_hours_in_last_5_days_4project_not_chosen / 40) * 100
+    @hours_per_day_per_project = Timesheet.get_hours_in_proj_per_day(emp_id, proj_id, Date.today)
+    [@total_perc_in_last_5_days_project, @total_perc_in_last_5_days_4project_not_chosen, @hours_per_day_per_project]
+  end
+
   def timesheet_params
     params.require(:timesheet).permit(:timespend, :project_id, :date_worked, :employee_id, :description)
+  end
+
+  def fetch_all_projects
+    @all_projects = Project.all.pluck(:id, :project_name)
   end
 end

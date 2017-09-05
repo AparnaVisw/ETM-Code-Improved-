@@ -8,6 +8,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module TA
+  # default class for application configuration
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
