@@ -27,7 +27,7 @@ class EmployeesController < ApplicationController
       redirect_to action: 'show', id: @user
     else
       render action: 'edit'
-   end
+    end
   end
 
   private
