@@ -71,9 +71,9 @@ class TimesheetsController < ApplicationController
   def calculate_total_hours_per_day(id)
     @total_hours_worked_today = Timesheet.get_total_hours_on_a_date(id, Date.today)
     @total_hours_worked_yest = Timesheet.get_total_hours_on_a_date(id, Date.yesterday)
-    @total_hours_worked_dayb4yest = Timesheet.get_total_hours_on_a_date(id, 2.day.ago)
-    @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(id, 3.day.ago)
-    @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(id, 4.day.ago)
+    @total_hours_worked_dayb4yest = Timesheet.get_total_hours_on_a_date(id, (2.day.ago).to_date)
+    @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(id, (3.day.ago).to_date)
+    @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(id, (4.day.ago).to_date)
     [@total_hours_worked_today, @total_hours_worked_yest, @total_hours_worked_dayb4yest, @total_hours_worked_3dayb4, @total_hours_worked_4dayb4]
   end
 
