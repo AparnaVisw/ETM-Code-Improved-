@@ -1,4 +1,4 @@
-inherit_from: ../.rubocop.yml
+
 Metrics/LineLength:
   # This will disable the rule completely, regardless what other options you put
   Enabled: false
