@@ -1,0 +1,28 @@
+en:
+  error: Please fill in all the fields in such a way that you dont log for more than 8 hours per day
+  name: NAME
+  employee_id: EMPLOYEE ID
+  date_of_birth: DATE OF BIRTH 
+  address: ADDRESS
+  edit: EDIT
+  edit_user: EDIT USER DETAILS
+  save: SAVE
+  show_profile: SHOW PROFILE
+  new_timesheet: NEW TIMESHEET
+  home_button: HOME
+  title: TITLE 
+  heading: EMPLOYEE TIMESHEET MANAGER
+  copyright_tag: COPYRIGHT RESERVED
+  whose_record: You Are Filling In
+  you_are_viewing: You are viewing
+  person_name: s record
+  new_timesheet: Add New Timesheets
+  select_project: SELECT PROJECT
+  select_date: SELECT DATE WORKED
+  select_time: SELECT TIME
+  fill_description: Description
+  update: UPDATE
+  project_name: Project's name
+
+
+ 

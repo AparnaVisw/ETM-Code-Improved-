@@ -17,7 +17,7 @@ class TimesheetsController < ApplicationController
     if @timesheets.save
       redirect_to action: 'index', id: params[:timesheet][:employee_id], project_id: params[:timesheet][:project_id]
     else
-      flash.now[:error] = 'Please fill in all the fields in such a way that you dont log for more than 8 hours per day'
+      flash.now[:error] = t(:error)
     end
   end
 
@@ -59,21 +59,22 @@ class TimesheetsController < ApplicationController
     end
   end
 
+  private
+
   def check_whether_exceeds_maximum_hours
     @timesheet_per_day = Timesheet.get_total_hours_on_a_date(params[:timesheet][:employee_id], params[:timesheet][:date_worked])
-    return if timesheet_params[:timespend].to_f + @timesheet_per_day <= 8.00
-    flash[:alert] = 'Please fill in all the fields such that total logged hours cant exceed more than 8'
-    redirect_to timesheets_new_path(id: params[:timesheet][:employee_id])
+    unless timesheet_params[:timespend].to_f + @timesheet_per_day <= 8.00
+      flash[:alert] = t(:error)
+      redirect_to timesheets_new_path(id: params[:timesheet][:employee_id])
+    end
   end
-
-  private
 
   def calculate_total_hours_per_day(id)
     @total_hours_worked_today = Timesheet.get_total_hours_on_a_date(id, Date.today)
     @total_hours_worked_yest = Timesheet.get_total_hours_on_a_date(id, Date.yesterday)
-    @total_hours_worked_dayb4yest = Timesheet.get_total_hours_on_a_date(id, (2.day.ago).to_date)
-    @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(id, (3.day.ago).to_date)
-    @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(id, (4.day.ago).to_date)
+    @total_hours_worked_dayb4yest = Timesheet.get_total_hours_on_a_date(id, 2.day.ago.to_date)
+    @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(id, 3.day.ago.to_date)
+    @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(id, 4.day.ago.to_date)
     [@total_hours_worked_today, @total_hours_worked_yest, @total_hours_worked_dayb4yest, @total_hours_worked_3dayb4, @total_hours_worked_4dayb4]
   end
 

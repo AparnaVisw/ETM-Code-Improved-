@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Timesheet Application</title>
+    <title>Timesheet Manager</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -13,13 +13,13 @@
   <div class="navbar-inner">
     <div class="container">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-      <%= link_to 'HOME', root_path,  method: :get, class: "btn btn-primary btn-default active" %>
+      <%= link_to t('home_button'), root_path,  method: :get, class: "btn btn-primary btn-default active" %>
         <span class="icon-bar"> </span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
       <div style="text-align:center">
-      <a href="#"> EMPLOYEE TIMESHEET MANAGER </a>
+      <a href="#"> <%= t :heading %> </a>
       </div>
       <div class="nav-collapse">
         <ul class="nav">
@@ -43,7 +43,7 @@
   <nav class="navbar navbar-inverse navbar-fixed-bottom">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand class="centre" href="#">Copyright Reserved </a>
+      <a class="navbar-brand class="centre" href="#"> <%= t :copyright_tag %> </a>
     </div>
   </div>
 </nav>

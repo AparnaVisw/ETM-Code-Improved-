@@ -11,10 +11,10 @@
 <div class="form-group">
   <thead class="thead-inverse">
     <tr>
-      <th>NAME</th>
-      <th>EMPLOYEE ID</th>
-      <th>DATE OF BIRTH</th>
-      <th>ADDRESS</th>
+      <th><%=t :name %></th>
+      <th><%=t :employee_id %></th>
+      <th><%=t :date_of_birth %></th>
+      <th><%=t :address %></th>
     </tr>
   </thead>
   </div>
@@ -30,7 +30,7 @@
 </div>
 </table>
 <div style="text-align:center">
- <%= link_to '  EDIT  ', employees_edit_path(id: @employee.id) , class: "btn btn-primary"%>
+ <%= link_to  t('edit'), employees_edit_path(id: @employee.id) , class: "btn btn-primary"%>
 </div>
 </div>
 <%end%>

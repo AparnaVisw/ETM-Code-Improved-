@@ -16,5 +16,10 @@ module TA
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    I18n.load_path += Dir[Rails.root.join('lib', 'locale', '*.{rb,yml}')]
+ 
+    # Whitelist locales available for the application
+    I18n.available_locales = [:en]
+
   end
 end

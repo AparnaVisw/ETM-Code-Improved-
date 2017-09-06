@@ -1,25 +1,25 @@
 <% if @user != nil %>
 <div class="container">
-<h1>Add New Timesheets</h1>
+<h1><%= t('new_timesheet')%></h1>
 
 <%= form_tag({:controller => "timesheets", :action => "create"}, {:method => "post"}) do %>
 <div class = "form-group">
 <div id = "users">
-<p>You are filling in
-<input type="hidden" name="timesheet[employee_id]" value="<%= @user.id %>"><%= @user.name %>
-'s timesheet</p>
+<p> <%= t('whose_record') %>
+<input type="hidden" name="timesheet[employee_id]" value="<%= @user.id %>"><%= @user.name %>  <%= t('person_name')%>
+</p>
 </div>
 </div>
 
 <div class = "form-group">
-<p> SELECT PROJECT </p>
+<p> <%= t('select_project') %>  </p>
 <p>
 <%= collection_select(:timesheet,:project_id,@projects,:id,:project_name ,{},{:class =>'relation browser-default form-control'})%>
 </p>
 </div>
 
 <div class = "form-group">
-<p> SELECT DATE WORKED </p>
+<p> <%= t('select_date') %> </p>
 <p>
             <select name="timesheet[date_worked]">
                 <option value="<%=Date.today.to_date%>" selected="selected"><%= Date.today.to_date %></option>
@@ -33,14 +33,14 @@
 
 
 <div class = "form-group">
-<p> SELECT TIME </p>
+<p> <%= t('select_time') %> </p>
 <p>
            <%= select("timesheet", "timespend", (0..8).step(0.25).collect {|p| [ "#{p}", p ] }, { :include_blank => true }) %>
 </p>
 </div>
 
 <div class = "form-group">
-<p> Description </p>
+<p> <%= t('fill_description') %></p>
 <p>
            <%= text_field(:timesheet, :description, class: "create_input required") %>
 </p>
@@ -48,13 +48,14 @@
 
 <div class = "form-group">
 <div style="text-align:left">
- <%= submit_tag("SAVE", :id=>"button", :class=>"submit", :name => "submit", class: "btn btn-primary") %>
+ <%= submit_tag( t('save'), :id=>"button", :class=>"submit", :name => "submit", class: "btn btn-primary") %>
  </div>
 </div>
 
 
 </tr>
 <% end %>
+</div>
 </div>
 
 <% end %>

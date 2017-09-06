@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -69,6 +69,16 @@ group :development do
   gem 'rspec-rails'
 
   gem 'rails-controller-testing', git: 'git://github.com/rails/rails-controller-testing.git'
+  
+  gem 'traceroute'
+  gem 'rack-mini-profiler'
+  # For memory profiling (requires Ruby MRI 2.1+)
+  gem 'memory_profiler'
+
+  # For call-stack profiling flamegraphs (requires Ruby MRI 2.0.0+)
+  gem 'flamegraph'
+  gem 'stackprof'     # For Ruby MRI 2.1+
+  gem 'fast_stack'    # For Ruby MRI 2.0
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -82,3 +92,5 @@ gem 'brakeman', require: false
 gem 'rails_best_practices', require: false
 gem 'rubocop', require: false
 gem 'rubycritic', require: false
+
+gem 'rails-i18n'

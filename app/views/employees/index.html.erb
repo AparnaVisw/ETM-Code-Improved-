@@ -4,7 +4,7 @@
   <div class="form-group">
   <thead class="thead-inverse">
     <tr>
-      <th>NAME</th>
+      <th> NAME </th>
       <th></th>
       <th></th>
     </tr>
@@ -14,8 +14,8 @@
 <div class="form-group">
   <tr>
     <td><%= user.name %></td>
-    <td><%= link_to 'SHOW PROFILE', employees_show_path(id: user.id),class: "btn btn-primary btn-default active"%></td>
-    <td><%= link_to 'NEW TIMESHEET', timesheets_new_path(id: user.id),class: "btn btn-primary btn-default active"%></td>
+    <td><%= link_to t('show_profile'), employees_show_path(id: user.id),class: "btn btn-primary btn-default active"%></td>
+    <td><%= link_to t('new_timesheet'), timesheets_new_path(id: user.id),class: "btn btn-primary btn-default active"%></td>
   </tr>
   </div>
 <% end %>

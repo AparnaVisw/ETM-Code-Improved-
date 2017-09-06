@@ -2,7 +2,7 @@
 <div class="container">
   <%= form_tag do %>
     <div style="text-align:center">
-        <h5>All timesheets for the past 5 days of <b><%= @employee %></h5> </p>
+        <h5><%= t('you_are_viewing') %> <b><%= @employee %></b><%= t('person_name') %></h5> </p>
     </div>
 
   <div id = "timesheets">
@@ -10,7 +10,7 @@
       <div class="form-group">
       <thead class="thead-inverse">
       <tr>
-          <th> Project's name </th>
+          <th> <%= t('project_name') %></th>
           <th> <%= (4.day.ago).to_date%> </th>
           <th> <%= (3.day.ago).to_date %> </th>
           <th> <%= (2.day.ago).to_date %> </th>
