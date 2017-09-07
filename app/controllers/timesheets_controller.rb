@@ -31,13 +31,8 @@ class TimesheetsController < ApplicationController
     @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(params[:id], 3.day.ago.to_date)
     @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(params[:id], 4.day.ago.to_date)
     @total_time_spend = Timesheet.get_total_hours_in_all_proj(params[:id])
-    @total_hours_4dayb4 = {}
-    @total_hours_3dayb4 = {}
-    @total_hours_dayb4yes = {}
-    @total_hours_yest = {}
-    @total_hours_today = {}
-    @total_hours_in_last_5_days_4project = {}
-    @percentage = {}
+    @total_hours_4dayb4, @total_hours_3dayb4, @total_hours_dayb4yes = {}, {}, {}
+    @total_hours_yest, @total_hours_today, @total_hours_in_last_5_days_4project, @percentage = {}, {}, {}, {}
     @all_projects.each do |proj|
       @total_hours_4dayb4[proj[0]] = Timesheet.get_hoursinproject_on_date(params[:id], 4.day.ago.to_date, proj[0])
       @total_hours_3dayb4[proj[0]] = Timesheet.get_hoursinproject_on_date(params[:id], 3.day.ago.to_date, proj[0])
@@ -79,15 +74,6 @@ class TimesheetsController < ApplicationController
     else
       render action: 'edit'
     end
-  end
-
-  def calculate_total_hours_per_day(id)
-    @total_hours_worked_today = Timesheet.get_total_hours_on_a_date(id, Date.today)
-    @total_hours_worked_yest = Timesheet.get_total_hours_on_a_date(id, Date.yesterday)
-    @total_hours_worked_dayb4yest = Timesheet.get_total_hours_on_a_date(id, 2.day.ago.to_date)
-    @total_hours_worked_3dayb4 = Timesheet.get_total_hours_on_a_date(id, 3.day.ago.to_date)
-    @total_hours_worked_4dayb4 = Timesheet.get_total_hours_on_a_date(id, 4.day.ago.to_date)
-    [@total_hours_worked_today, @total_hours_worked_yest, @total_hours_worked_dayb4yest, @total_hours_worked_3dayb4, @total_hours_worked_4dayb4]
   end
 
   private
