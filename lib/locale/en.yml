@@ -14,8 +14,8 @@ en:
   heading: EMPLOYEE TIMESHEET MANAGER
   copyright_tag: COPYRIGHT RESERVED
   whose_record: You Are Filling In
-  you_are_viewing: You are viewing
-  person_name: s record
+  you_are_viewing: You are viewing the history of timesheets submitted by
+  person_name: s records
   new_timesheet: Add New Timesheets
   select_project: SELECT PROJECT
   select_date: SELECT DATE WORKED
@@ -23,6 +23,9 @@ en:
   fill_description: Description
   update: UPDATE
   project_name: Project's name
+  show_timesheets: Show All Timesheets
+  utilization_table: Utilization table
+  submitted_on: Timesheet Submitted On
 
 
  

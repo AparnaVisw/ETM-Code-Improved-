@@ -1,8 +1,7 @@
-
 <div class="container">
   <%= form_tag do %>
     <div style="text-align:center">
-        <h5><%= t('you_are_viewing') %> <b><%= @employee %></b><%= t('person_name') %></h5> </p>
+        <h5><%= t('you_are_viewing') %> <b><%= @employee %></b></h5> </p>
     </div>
 
   <div id = "timesheets">
@@ -16,6 +15,7 @@
           <th> <%= (2.day.ago).to_date %> </th>
           <th> <%= (Date.yesterday).to_date %> </th>
           <th> <%= (Date.today).to_date %>,Today </th>
+          <th> <%= t('submitted_on') %> </th>
       </tr>
       </thead>
       </div>
@@ -28,6 +28,7 @@
           <td id ="two_days_b4"> <%= link_to t.timespend,timesheets_edit_path(id:  @user.id,timesheet_id: t.id) if t.date_worked == (2.day.ago).to_date %> </td>
           <td id ="one_day_b4"><%= link_to t.timespend,timesheets_edit_path(id:  @user.id,timesheet_id: t.id) if t.date_worked == (Date.yesterday) %>  </td>
           <td id ="today">  <%= link_to t.timespend,timesheets_edit_path(id:  @user.id,timesheet_id: t.id) if t.date_worked == (Date.today) %>  </td>
+          <td id ="submitted_on">  <%=  t.created_at.strftime("%d %b. %Y") %>  </td>
       </tr>
       </div>
       <% end %>
@@ -37,38 +38,48 @@
   <% end %>
 </div>
 
-<div class="container">
-<div class="row">
-    <div class="col-sm-6 form-group">
-        <form role="form" class="form-horizontal">
-           <p><u>Grand Total</u> Of hours worked on <b><%= (4.day.ago).to_date%></b> : <%= @total_hours_worked_4dayb4 %> </p>
-           <p><u>Grand Total</u> Ofhours worked on <b><%= (3.day.ago).to_date%></b> :<%= @total_hours_worked_3dayb4 %> </p>
-           <p><u>Grand Total</u> Of hours worked on <b><%= (2.day.ago).to_date%></b>: <%= @total_hours_worked_dayb4yest %> </p>
-           <p><u>Grand Total</u> Of hours worked on <b><%= (Date.yesterday) %> </b>:<%= @total_hours_worked_yest %></p>
-          <p><u>Grand Total</u> Of hours worked on <b><%= (Date.today) %></b> : <%= @total_hours_worked_today %></p>
-        </form>
-    </div>
-    <div class="col-sm-6 form-group">
-        <form role="form" class="form-horizontal">
-        <% @all_projects.each do |p| %>
-        <% if p[0] == params[:project_id].to_i %>
-          <p><u>Total hours</u> worked for the last 5 days in <b> <%= p[1] %></b> : <%= @total_hours_in_last_5_days_project %> </p>
-          <% else %>
-          <p><u>Total hours</u> worked for the last 5 days in <b> <%= p[1] %></b> : <%= @total_hours_in_last_5_days_4project_not_chosen %> </p>
-          <% end %>
-          <% end %>
-        </form>
-    </div>
-     <div class="col-sm-6 form-group">
-        <form role="form" class="form-horizontal">
-        <% @all_projects.each do |p| %>
-        <% if p[0] == params[:project_id].to_i %>
-          <p><u><b><%= @employee %></b></u>  had spend <u><b><%=@total_perc_in_last_5_days_project %> %</b></u> of his productive time in the last 5 days in <u><b> <%= p[1] %></b></u>  </p>
-          <% else %>
-          <p><u><b><%= @employee %></b></u>  had spend <u><b> <%= @total_perc_in_last_5_days_4project_not_chosen %> % </b></u> of his productive time in the last 5 days in <u><b> <%= p[1] %></b></u>  </p>
-          <% end %>
-          <% end %>
-        </form>
-    </div>
+<div style="text-align:center">
+        <h5><b><%= t('utilization_table') %></b> </h5> </p>
 </div>
+<div id = "utilization">
+    <table id="calculation" class="table table-bordered table-striped table-sm" cellspacing="10">
+      <div class="form-group">
+      <thead class="thead-inverse">
+      <tr>
+          <th> <%= t('project_name') %></th>
+          <th> <%= (4.day.ago).to_date%> [hour] </th>
+          <th> <%= (3.day.ago).to_date %> [hour] </th>
+          <th> <%= (2.day.ago).to_date %> [hour] </th>
+          <th> <%= (Date.yesterday).to_date %> [hour] </th>
+          <th> <%= (Date.today).to_date %>,Today [hour] </th>
+          <th> Grand Total [hour] </th>
+          <th> Percentage Utilized(%) </th>
+      </tr>
+      <% @all_projects.each do |proj| %>
+      <tr id = "<%= proj[0] %>" > 
+        <td> <%= proj[1] %> </td>
+        <td><%= @total_hours_4dayb4[proj[0]] %></td>
+        <td><%= @total_hours_3dayb4[proj[0]] %></td>
+        <td><%= @total_hours_dayb4yes[proj[0]] %></td>
+        <td><%= @total_hours_yest[proj[0]] %></td>
+        <td><%= @total_hours_today[proj[0]] %></td>
+        <td> <%= @total_hours_in_last_5_days_4project[proj[0]] %></td>
+        <td> <%= @percentage[proj[0]] %></td>
+      </tr>
+      <% end %>
+      <tr> 
+        <td> Total </td>
+        <td> <%= @total_hours_worked_4dayb4 %></td>
+        <td> <%= @total_hours_worked_3dayb4 %></td>
+        <td> <%= @total_hours_worked_dayb4yest %></td>
+        <td> <%= @total_hours_worked_yest %></td>
+        <td> <%= @total_hours_worked_today %></td>
+        <td> <%= @total_hours_worked_for_last_5_days %></td>
+        <td> <%= @total_perc_in_last_5_days_project %></td>
+      </tr>   
+      </thead>
+      </div>
+      </div>
+    </table>
+  </div>
 </div>

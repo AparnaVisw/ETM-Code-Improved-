@@ -66,19 +66,15 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'factory_girl_rails'
-  gem 'rspec-rails'
-
-  gem 'rails-controller-testing', git: 'git://github.com/rails/rails-controller-testing.git'
-  
-  gem 'traceroute'
-  gem 'rack-mini-profiler'
+  gem 'flamegraph'
   # For memory profiling (requires Ruby MRI 2.1+)
   gem 'memory_profiler'
-
-  # For call-stack profiling flamegraphs (requires Ruby MRI 2.0.0+)
-  gem 'flamegraph'
-  gem 'stackprof'     # For Ruby MRI 2.1+
-  gem 'fast_stack'    # For Ruby MRI 2.0
+  gem 'rack-mini-profiler'
+  gem 'rails-controller-testing', git: 'git://github.com/rails/rails-controller-testing.git'
+  gem 'rspec-rails'
+  # For Ruby MRI 2.1+
+  gem 'stackprof'
+  gem 'traceroute'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
