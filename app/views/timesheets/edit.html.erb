@@ -1,5 +1,5 @@
 <div class ="container">
-<%= form_tag({:controller => "timesheets", :action => "update"}, {:method => "put"}) do %>
+<%= form_tag timesheets_update_path(@timesheet[0].id), method: :put do %>
 <div class = "form-group">
 <div id = "users">
 <p><%= t(:whose_record)%>

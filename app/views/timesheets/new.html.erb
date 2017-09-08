@@ -35,14 +35,14 @@
 <div class = "form-group">
 <p> <%= t('select_time') %> </p>
 <p>
-           <%= select("timesheet", "timespend", (0..8).step(0.25).collect {|p| [ "#{p}", p ] }, { :include_blank => true }) %>
+           <%= select("timesheet", "timespend", (0..8).step(0.25).collect {|p| [ "#{p}", p ]}, {selected: '0.25'}, { :include_blank => true }) %>
 </p>
 </div>
 
 <div class = "form-group">
 <p> <%= t('fill_description') %></p>
 <p>
-           <%= text_field(:timesheet, :description, class: "create_input required") %>
+           <%= text_field(:timesheet, :description, :value => "Worked sincerely", class: "create_input required") %>
 </p>
 </div>
 
