@@ -12,5 +12,5 @@ class Timesheet < ApplicationRecord
   scope :get_total_hours_in_all_proj, ->(emp_id) { where('employee_id= ? and date_worked<= ? and date_worked >= ?', emp_id, Date.today.to_date, 4.day.ago.to_date).sum('timespend') }
   scope :employee_timesheet, ->(id) { where('employee_id= ?', id) }
   scope :get_timesheet_record, ->(id) { where('id= ?', id) }
-  scope :get_hoursinproject_on_date, ->(emp_id, date, proj_id) { where('employee_id= ? and project_id= ? and date_worked = ?', emp_id, proj_id, date).sum('timespend') }
+  scope :get_hours_in_project_on_date, ->(emp_id, date, proj_id) { where('employee_id= ? and project_id= ? and date_worked = ?', emp_id, proj_id, date).sum('timespend') }
 end
