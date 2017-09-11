@@ -10,13 +10,13 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: root
   host: localhost
   reconnect: true
 
 development:
   <<: *default
   database: t_a_dev
+  password: root
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -28,4 +28,5 @@ test:
 production:
   <<: *default
   database: t_a_prod
+  password: root
 
