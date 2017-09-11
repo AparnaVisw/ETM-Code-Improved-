@@ -41,10 +41,12 @@ RSpec.describe TimesheetsController, type: :controller do
     end
   end
 
-  describe 'GET #index' do
-    context 'view a specifiic users records of timesheets' do
-      it 'shows existing timesheets' do
+  describe 'GET #new' do
+    context 'should create a new timesheet form' do
+      it 'assigns a new Timesheet to @timesheet' do
       end
+
+      it 'renders the new template'
     end
   end
 end

@@ -1,7 +1,7 @@
 # controller for timesheet management
 class TimesheetsController < ApplicationController
-  include TimesheetsHelper
-
+  include Timesheetable
+  before_action :find_date_worked, only: %i[create update]
   before_action :check_whether_exceeds_maximum_hours, only: %i[create update], if: :time_spend_exceeded?
   before_action :fetch_all_projects
 
@@ -61,12 +61,17 @@ class TimesheetsController < ApplicationController
 
   def check_whether_exceeds_maximum_hours
     flash[:alert] = t(:error)
-    redirect_to timesheets_new_path(id: params[:timesheet][:employee_id])
+    redirect_to new_timesheet_path(id: params[:timesheet][:employee_id])
   end
 
   def time_spend_exceeded?
-    @timesheet_per_day = Timesheet.get_total_hours_on_a_date(params[:timesheet][:employee_id], params[:timesheet][:date_worked])
+    find_date_worked
+    @timesheet_per_day = Timesheet.get_total_hours_on_a_date(params[:timesheet][:employee_id], @date_worked)
     timesheet_params[:timespend].to_f + @timesheet_per_day > 8.00
+  end
+
+  def find_date_worked
+    @date_worked = params[:id].nil? ? params[:timesheet][:date_worked] : Timesheet.get_date_worked_from_timesheet_id(params[:id])
   end
 
   def timesheet_params

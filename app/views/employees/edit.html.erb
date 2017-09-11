@@ -1,5 +1,5 @@
 <div class="container">
-<%= form_for @user , class: "form-horizontal" , :as => :user, :url => employees_update_path(@user), :method => :PUT do |f| %>
+<%= form_for @user , class: "form-horizontal" , :as => :user, :url => employee_path(@user), :method => :PUT do |f| %>
 
 <div style="text-align:center">
         <p> <%= t('edit_user') %></p>

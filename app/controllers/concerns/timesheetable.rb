@@ -1,5 +1,7 @@
-# default helper for timesheets controller
-module TimesheetsHelper
+# making controller skinny by using timesheetable module
+module Timesheetable
+  extend ActiveSupport::Concern
+
   def calculate_total_hours_on_a_day(id)
     @total_hours_worked = []
     dates_of_timesheets = [Date.today, Date.yesterday, 2.day.ago.to_date, 3.day.ago.to_date, 4.day.ago.to_date]
