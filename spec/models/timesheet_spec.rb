@@ -15,4 +15,9 @@ RSpec.describe Timesheet, type: :model do
     timesheet = Timesheet.new(project_id: nil)
     expect(timesheet).to_not be_valid
   end
+
+  it "should belong to timesheets" do
+    t = Timesheet.reflect_on_association(:employee)
+    expect(t.macro).to eq(:belongs_to)
+  end
 end

@@ -40,13 +40,4 @@ RSpec.describe TimesheetsController, type: :controller do
       end
     end
   end
-
-  describe 'GET #new' do
-    context 'should create a new timesheet form' do
-      it 'assigns a new Timesheet to @timesheet' do
-      end
-
-      it 'renders the new template'
-    end
-  end
 end

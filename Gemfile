@@ -74,7 +74,7 @@ group :development do
   gem 'memory_profiler'
   gem 'rack-mini-profiler'
   gem 'rails-controller-testing', git: 'git://github.com/rails/rails-controller-testing.git'
-  gem 'rspec-rails'
+  gem 'rspec-rails','~> 3.5.0'
   # For Ruby MRI 2.1+
   gem 'stackprof'
   gem 'traceroute'
