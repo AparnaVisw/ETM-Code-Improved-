@@ -5,7 +5,16 @@ env:
   global:
     - ENV1=key
     - ENV2=key
+services:
+    - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE t_a_test;'
 before_script:
   - bundle exec rake db:create db:schema:load RAILS_ENV=test
 script:
   - bundle exec rspec --no-drb --format progress spec/
+test:
+  adapter: mysql2
+  database: t_a_test
+  username: root
+  encoding: utf8
