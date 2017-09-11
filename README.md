@@ -25,7 +25,8 @@ bundle install
 
 ## Setting up local development database 
 rails  db:create      
-rails db:migrate       
+rails db:migrate 
+rails db:seed
 
 ## Running the development server
 rails s
