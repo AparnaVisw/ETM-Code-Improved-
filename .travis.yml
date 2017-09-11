@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 2.3.0
+env:
+  global:
+    - ENV1=key
+    - ENV2=key
+before_script:
+  - bundle exec rake db:create db:schema:load RAILS_ENV=test
+script:
+  - bundle exec rspec --no-drb --format progress spec/
