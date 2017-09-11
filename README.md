@@ -10,18 +10,22 @@ ETM is an improvement of a work done earlier by me which can be found at the lin
 ## Requirements
 
 Ruby [ruby 2.3.1p112]
+
 Mysql [mysql  Ver 14.14]
+
 Rails [5.1.3]
 
 
 ## SetUp
-git clone https://github.com/AparnaVisw/ETM-Code-Improved-.git
-cd ETM-Code-Improved-
-bundle install
+git clone https://github.com/AparnaVisw/ETM-Code-Improved-.git 
+
+cd ETM-Code-Improved-   
+
+bundle install      
 
 ## Setting up local development database 
-rails  db:create
-rails db:migrate
+rails  db:create      
+rails db:migrate       
 
 ## Running the development server
 rails s
