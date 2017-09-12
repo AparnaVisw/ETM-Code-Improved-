@@ -17,13 +17,12 @@ RSpec.describe Employee, type: :model do
   end
 
   it 'is not valid without a valid address' do
-  	employee = Employee.new(address: nil)
+    employee = Employee.new(address: nil)
     expect(employee).to_not be_valid
   end
 
-  it "should have many timesheets" do
+  it 'should have many timesheets' do
     t = Employee.reflect_on_association(:timesheets)
     expect(t.macro).to eq(:has_many)
   end
-
 end

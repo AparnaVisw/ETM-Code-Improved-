@@ -11,5 +11,4 @@ class Employee < ApplicationRecord
   dragonfly_accessor :image_thumb
 
   scope :get_employee_record, ->(id) { where('id= ?', id) }
-
 end
