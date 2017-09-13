@@ -20,7 +20,7 @@
       </thead>
       </div>
        <div class="form-group">
-       <% @timesheets.each do |t| %>
+       <% @service_object.timesheets.each do |t| %>
       <tr>
           <td id ="def_project_name"> <%= if @all_projects[0][0] == t.project_id then @all_projects[0][1] else @all_projects[1][1] end %> </td>
           <td id ="four_days_b4"><%= link_to t.timespend,edit_timesheet_path(id:  @user.id,timesheet_id: t.id) if t.date_worked == (4.day.ago).to_date %> </td>
@@ -57,24 +57,24 @@
       <% @all_projects.each do |proj| %>
       <tr id = "<%= proj[0] %>" > 
         <td> <b><%= proj[1] %> </b> </td>
-        <td><%= @total_hours_4dayb4[proj[0]] %></td>
-        <td><%= @total_hours_3dayb4[proj[0]] %></td>
-        <td><%= @total_hours_dayb4yes[proj[0]] %></td>
-        <td><%= @total_hours_yest[proj[0]] %></td>
-        <td><%= @total_hours_today[proj[0]] %></td>
-        <td> <%= @total_hours_in_last_5_days_4project[proj[0]] %></td>
-        <td> <b><%= @percentage[proj[0]] %></b></td>
+        <td><%= @service_object.total_hours_4dayb4[proj[0]] %></td>
+        <td><%= @service_object.total_hours_3dayb4[proj[0]] %></td>
+        <td><%= @service_object.total_hours_dayb4yes[proj[0]] %></td>
+        <td><%= @service_object.total_hours_yest[proj[0]] %></td>
+        <td><%= @service_object.total_hours_today[proj[0]] %></td>
+        <td> <%= @service_object.total_hours_in_last_5_days_4project[proj[0]] %></td>
+        <td> <b><%= @service_object.percentage[proj[0]] %></b></td>
       </tr>
       <% end %>
       <tr> 
         <td> <b>Total</b> </td>
-        <td> <b><%= @total_hours_worked[4] %></b></td>
-        <td> <b><%= @total_hours_worked[3] %></b></td>
-        <td> <b><%= @total_hours_worked[2] %></b></td>
-        <td> <b><%= @total_hours_worked[1] %></b></td>
-        <td> <b><%= @total_hours_worked[0] %></b></td>
-        <td> <b><%= @total_hours_worked_for_last_5_days %></b></td>
-        <td> <b><%= @total_perc_in_last_5_days_project %></b></td>
+        <td> <b><%= @service_object.total_hours_worked[4] %></b></td>
+        <td> <b><%= @service_object.total_hours_worked[3] %></b></td>
+        <td> <b><%= @service_object.total_hours_worked[2] %></b></td>
+        <td> <b><%= @service_object.total_hours_worked[1] %></b></td>
+        <td> <b><%= @service_object.total_hours_worked[0] %></b></td>
+        <td> <b><%= @service_object.total_hours_worked_for_last_5_days %></b></td>
+        <td> <b><%= @service_object.total_perc_in_last_5_days_project %></b></td>
       </tr>   
       </thead>
       </div>

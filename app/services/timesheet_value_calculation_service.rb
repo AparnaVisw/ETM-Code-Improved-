@@ -1,18 +1,28 @@
-# making controller skinny by using timesheetable module
-module Timesheetable
-  extend ActiveSupport::Concern
+# service class for calculating values to be displayed in timesheet
+class TimesheetValueCalculationService
+  attr_reader :total_hours_worked_for_last_5_days, :percentage, :total_hours_in_last_5_days_4project, :total_hours_yest, :total_time_spend, :total_hours_today, :total_hours_dayb4yes, :total_hours_3dayb4, :total_perc_in_last_5_days_project, :total_hours_worked, :timesheets, :total_hours_4dayb4
+  def initialize(id, all_projects)
+    @id = id
+    @projects = all_projects
+  end
 
-  def calculate_total_hours_on_a_day(id)
+  def perform
+    timesheet_values
+  end
+
+  private
+
+  def calculate_total_hours_on_a_day
     @total_hours_worked = []
     dates_of_timesheets = [Date.today, Date.yesterday, 2.day.ago.to_date, 3.day.ago.to_date, 4.day.ago.to_date]
     dates_of_timesheets.each do |date|
-      @total_hours_worked << Timesheet.get_total_hours_on_a_date(id, date)
+      @total_hours_worked << Timesheet.get_total_hours_on_a_date(@id, date)
     end
   end
 
   def calculate_hours_on_a_project(employee_id)
     data_for_calculating_hours
-    @all_projects.each do |proj|
+    @projects.each do |proj|
       project_id = proj[0]
       calculate_hours_for_previous_days(project_id, employee_id)
       calculate_hours_for_yest_and_today(project_id, employee_id)
@@ -47,14 +57,14 @@ module Timesheetable
   end
 
   def timesheet_values
-    @timesheets = Timesheet.employee_timesheet(params[:id].to_s)
-    @total_time_spend = Timesheet.get_total_hours_in_all_proj(params[:id])
-    calculate_total_hours_on_a_day(params[:id])
+    @timesheets = Timesheet.employee_timesheet(@id.to_s)
+    @total_time_spend = Timesheet.get_total_hours_in_all_proj(@id)
+    calculate_total_hours_on_a_day
     utilization_details
   end
 
   def utilization_details
-    calculate_hours_on_a_project(params[:id])
+    calculate_hours_on_a_project(@id)
     @total_hours_worked_for_last_5_days = @total_hours_in_last_5_days_4project.values.inject(:+).to_f
     @total_perc_in_last_5_days_project = (@total_hours_worked_for_last_5_days / 40) * 100
   end

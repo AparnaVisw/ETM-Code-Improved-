@@ -1,6 +1,6 @@
 # controller for timesheet management
 class TimesheetsController < ApplicationController
-  include Timesheetable
+  # include Timesheetable
   before_action :find_date_worked, only: %i[create update]
   before_action :check_whether_exceeds_maximum_hours, only: %i[create update], if: :time_spend_exceeded?
   before_action :fetch_all_projects
@@ -25,7 +25,9 @@ class TimesheetsController < ApplicationController
 
   def index
     @user = Employee.find(params[:id])
-    timesheet_values
+    @timesheets = Timesheet.employee_timesheet(params[:id].to_s)
+    @service_object = TimesheetValueCalculationService.new(params[:id], @all_projects)
+    @service_object.perform
     respond_to do |format|
       format.html
     end
